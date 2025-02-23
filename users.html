@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --spotify-black: #121212;
+            --spotify-dark-gray: #282828;
+            --spotify-light-gray: #B3B3B3;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: var(--spotify-black);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .user-stats {
+            width: 100%;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            background: var(--spotify-green);
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -100px;
+            background: var(--spotify-green);
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.15; }
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--spotify-green);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(29, 185, 84, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .stat-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: var(--spotify-dark-gray);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--spotify-green);
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+
+        .counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--spotify-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .counter {
+            transform: scale(1.1);
+        }
+
+        h3 {
+            color: var(--spotify-light-gray);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .user-stats {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="user-stats">
+        <div class="background-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="icon-wrapper">
+                    <img src="/api/placeholder/80/80" alt="Spotify" class="service-logo">
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="stat-content">
+                    <div class="counter" data-target="200">0</div>
+                    <h3>Spotify Users</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-wrapper">
+                    <img src="/api/placeholder/80/80" alt="Netflix" class="service-logo">
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="stat-content">
+                    <div class="counter" data-target="60">0</div>
+                    <h3>Netflix Users</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-wrapper">
+                    <img src="/api/placeholder/80/80" alt="Steam" class="service-logo">
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="stat-content">
+                    <div class="counter" data-target="40">0</div>
+                    <h3>Steam Users</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced counter animation with easing
+        function animateCounter(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const duration = 2000;
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function (easeOutExpo)
+                const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+                
+                const current = Math.floor(start + (target - start) * easeOutExpo);
+                el.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer for animation triggers
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.counter');
+                    animateCounter(counter);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        // Observe all stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Mouse movement parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const cards = document.querySelectorAll('.stat-card');
+            
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const x = mouseX * speed;
+                const y = mouseY * speed;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = rect.left + rect.width / 2;
+                const cardY = rect.top + rect.height / 2;
+                
+                const deltaX = (e.clientX - cardX) / 30;
+                const deltaY = (e.clientY - cardY) / 30;
+                
+                card.style.transform = `perspective(1000px) rotateX(${-deltaY}deg) rotateY(${deltaX}deg) translateZ(10px)`;
+            });
+        });
+
+        // Reset card rotation when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
